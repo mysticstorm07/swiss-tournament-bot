@@ -16,12 +16,12 @@ The rules work as follows:
 - __The opponent a player is matched up with usually shares the number of wins and losses they have both incurred across the entire tournament.__ If, however, there is no such opponent to be matched up against, the opponent is decided to be the next highest ranked opponent in the leaderboard.
 
 So for example, if the leaderboard of a tournament of 40 players after 5 rounds looks like: 
-A - 5 Wins 0 Losses 
-B - 4 Wins 1 Loss
-C - 4 Wins 1 Loss
-D - 4 Wins 1 Loss
-E - 4 Wins 1 Loss
-F - 4 Wins 1 Loss
+A - 5 Wins 0 Losses ,
+B - 4 Wins 1 Loss,
+C - 4 Wins 1 Loss,
+D - 4 Wins 1 Loss,
+E - 4 Wins 1 Loss,
+F - 4 Wins 1 Loss,
 G - 4 Wins 1 Loss
 ....and so on and so on, then A is paired up against the one of the players with 4 wins and 1 loss for round 6. A natural question may be, how do we decide which opponent to pair A against? This is resolved by the next rule.
 
