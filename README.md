@@ -36,3 +36,13 @@ In the example above, if A has not played against B, they may be paired against 
 * **There are different types of tiebreakers used to refine leaderboard rankings.** The exact tiebreaking methods are completely up to the tournament host to decide.
 The method I implemented in my bot is **game differential (win-loss difference)**, assuming each match is played as a best-of-3. If A wins against B with a 2–1 score, in addition to receiving a match win, A gets **+1 tiebreaker point**. Similarly, B receives a match loss and **-1 tiebreaker point**.
 I have also included draws as a possible match outcome—a draw awards **0 tiebreaker points**.
+
+## What Has Been Done (and What Remains)
+
+Keeping in mind the above rules, I have built an engine that runs matchmaking, as well as leaderboard fetching and updating functions. Matchmaking is carried out by a simple recursive function—which I found a bit challenging yet fun to derive—while the rest are simple get-and-update functions.
+
+The `tournament.py` file is the Discord interface that tournament hosts, admins, and players interact with on a Discord server. It is currently designed to be minimalistic, as my primary goal when making this project was simply to build something that functions properly.
+
+The `main.py` file has yet to be created, but since the majority of the brainstorming went into the engine and interface, completing the main file isn't something I am too worried about. What I also forgot to handle in the score-deciding algorithm was a completely tied match (e.g., 3 draws, or 1 win, 1 loss, and 1 draw), but that isn't a particularly difficult problem to solve either.
+
+So what really remains is completing the `main.py` file, importing the bot into a Discord server, and testing it out. Hopefully, this can be accomplished over the next two weeks.
