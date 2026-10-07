@@ -1,38 +1,38 @@
 # swiss-tournament-bot
 
-I have been an avid player of video games all my life, and over the past months I have been participating in online tournaments whenever I find the time, and spectate when I don't. However, the tournaments I play in almost always seem to use an external website to create brackets and matches which then have to be conveyed over Discord.
+I have been an avid player of video games all my life, and over the past few months, I have been participating in online tournaments whenever I find the time, and spectating when I don't. However, the tournaments I play in almost always seem to use external websites to create brackets and matches, which then have to be conveyed over Discord.
 
-That gave me the inspiration to create a bot on the same that could automate the entire matchmaking process within the platform without having to rely on a different tool.
-Specifically, I created a bot that creates and hosts tournaments in the Swiss format. I found Swiss to be the most interesting tournament format (others being single-elimination (knockouts), double-elimination, and Round Robin) and decided to try making this bot as my first attempt at a real project.
+That gave me the inspiration to create a Discord bot that could automate the entire matchmaking process within the platform without having to rely on an external tool.
+Specifically, I created a bot that creates and hosts tournaments in the Swiss format. I found Swiss to be the most interesting tournament format (compared to single-elimination, double-elimination, and round-robin) and decided to try making this bot as my first attempt at a real project.
 
-## The Rules of Swiss 
+## The Rules of Swiss
 
-Swiss is one of the fairer tournament formats. You never have to worry about playing too tough opponents, or easy for that matter. Swiss ensures that the opponent you play against is of your skill level. Of course, the more games that are played, the fairer the matchups become.
+Swiss is one of the fairer tournament formats. You never have to worry about playing opponents who are too tough—or too easy, for that matter. Swiss ensures that the opponent you play against is close to your skill level. Of course, the more games that are played, the fairer the matchups become.
 
 The rules work as follows:
 
-- In case of an odd number of players, the player unable to be paired up against anyone is given a bye, meaning he is awarded a win. A player can only be given one bye per tournament.
+* **In the case of an odd number of players**, the player unable to be paired up with anyone is given a bye, meaning they are awarded a win. A player can only be given one bye per tournament.
+* **The opponent a player is matched with usually shares the same win-loss record across the entire tournament.** If, however, there is no such opponent to match against, the selected opponent is the next highest-ranked player on the leaderboard.
+For example, if the leaderboard of a 40-player tournament after 5 rounds looks like:
+```text
+A - 5 Wins, 0 Losses
+B - 4 Wins, 1 Loss
+C - 4 Wins, 1 Loss
+D - 4 Wins, 1 Loss
+E - 4 Wins, 1 Loss
+F - 4 Wins, 1 Loss
+G - 4 Wins, 1 Loss
+...and so on
 
-- __The opponent a player is matched up with usually shares the number of wins and losses they have both incurred across the entire tournament.__ If, however, there is no such opponent to be matched up against, the opponent is decided to be the next highest ranked opponent in the leaderboard.
+```
 
-So for example, if the leaderboard of a tournament of 40 players after 5 rounds looks like: 
-A - 5 Wins 0 Losses ,
-B - 4 Wins 1 Loss,
-C - 4 Wins 1 Loss,
-D - 4 Wins 1 Loss,
-E - 4 Wins 1 Loss,
-F - 4 Wins 1 Loss,
-G - 4 Wins 1 Loss
-....and so on and so on, then A is paired up against the one of the players with 4 wins and 1 loss for round 6. A natural question may be, how do we decide which opponent to pair A against? This is resolved by the next rule.
 
-- __A player must _not_ be paired up against an opponent they have already played.__ If there is no way for matchmaking to be done that creates a valid matchup for all players, the tournament must be completed, or should be continued anew, meaning the next matchup should be made assuming no player has played anyone.
+Then player A is paired against one of the players with 4 wins and 1 loss for Round 6. A natural question might be: *How do we decide which 4–1 player to pair A against?* This is resolved by the next rule.
+* **A player must *not* be paired against an opponent they have already played.** If matchmaking cannot create a valid matchup for all players, the tournament must either be completed or continued anew (meaning the next set of matchups is made assuming no player has played anyone).
 
-So in the above example, if A has not played with B, they may be the round 6 matchups for each other. The 'may' is because the rest of the players should also have valid opponents to play, i.e. opponents they haven't played before. In case a player doesn't have a valid remaining matchup, the matchmaking has to be traced back to a point where valid matchups _may_ be made. So if A playing B implies that there is always a player with no valid matchup, then A cannot play B and he must find the next best opponent.
-(This is most likely never going to happen in this sample tournament, but I hope the explanation clears the rule up.)
+In the example above, if A has not played against B, they may be paired against each other for Round 6. The word "may" is key because all remaining players must also have valid, unplayed opponents. If pairing A with B leaves another player with no valid matchup, the matchmaking system must backtrack to find valid matchups for everyone. So, if A playing B results in another player having no valid opponent, A cannot play B and must be paired with the next best available opponent.
+*(This is unlikely to happen in this sample tournament, but this explanation illustrates the rule.)*
 
-- There are different types of tiebreakers to refine the rankings in leaderboards. There are different tie breaking means which are completely up to the tournament host to decide.
-
-The means I have used in my bot is a win-loss difference, since I have also assumed that each round will be a best of 3. If A wins in the match against B with a 2-1 score, apart from the awarded win, A also receives 1 tie breaking point. Similarly, B receives a loss as well as a -1 tie breaking point.
-
-I have also included draws in my round outcome - a draw rewards 0 tie breaking points. 
-
+* **There are different types of tiebreakers used to refine leaderboard rankings.** The exact tiebreaking methods are completely up to the tournament host to decide.
+The method I implemented in my bot is **game differential (win-loss difference)**, assuming each match is played as a best-of-3. If A wins against B with a 2–1 score, in addition to receiving a match win, A gets **+1 tiebreaker point**. Similarly, B receives a match loss and **-1 tiebreaker point**.
+I have also included draws as a possible match outcome—a draw awards **0 tiebreaker points**.
